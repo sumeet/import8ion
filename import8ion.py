@@ -48,7 +48,7 @@ class WritesImports(object):
 
 def organize(code):
     return WritesImports.write(
-        AlphabetizesImports.alphabetize(ExtractsImports.extract(code)))
+        AlphabetizesImports.alphabetize(set(ExtractsImports.extract(code))))
 
 
 if __name__ == '__main__':

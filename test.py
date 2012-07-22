@@ -11,6 +11,7 @@ from import8ion import organize
 unorganized_imports = """\
 import datetime, mock
 from decimal import Decimal
+import datetime
 from myproj import something
 from decimal import getcontext
 import import8ion
