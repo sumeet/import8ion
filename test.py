@@ -1,6 +1,7 @@
 from expecter import expect
 
-from import8ion import organize
+from import8ion import ExtractsImports
+from import8ion import Import
 
 
 
@@ -33,3 +34,11 @@ from myproj import something
 
 #    def test_organizes_imports(self):
 #        expect(organize(unorganized_imports)) == organized_imports
+
+
+class ExtractsImportsTest(object):
+
+    def test_finds_imports(self):
+        imports = ExtractsImports.extract('import name\n'
+                                          'from module import name')
+        expect(imports) == [Import('name', None), Import('module', 'name')]
