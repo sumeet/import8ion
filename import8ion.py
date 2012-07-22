@@ -1,6 +1,7 @@
 import ast
 from collections import namedtuple
 import itertools
+import sys
 
 
 Import = namedtuple('Import', 'module name')
@@ -48,3 +49,7 @@ class WritesImports(object):
 def organize(code):
     return WritesImports.write(
         AlphabetizesImports.alphabetize(ExtractsImports.extract(code)))
+
+
+if __name__ == '__main__':
+    print organize(sys.stdin.read())
