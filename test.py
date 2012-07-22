@@ -15,28 +15,24 @@ from myproj import something
 from decimal import getcontext
 import import8ion
 import os
-import os.path
-"""
+import os.path"""
 
 
 organized_imports = """\
 import datetime
 from decimal import Decimal
 from decimal import getcontext
-import os
-import os.path
-
-import mock
-
 import import8ion
+import mock
 from myproj import something
-"""
+import os
+import os.path"""
 
 
-#class AcceptanceTest(object):
+class AcceptanceTest(object):
 
-#    def test_organizes_imports(self):
-#        expect(organize(unorganized_imports)) == organized_imports
+    def test_organizes_imports(self):
+        expect(organize(unorganized_imports)) == organized_imports
 
 
 class ExtractsImportsTest(object):
