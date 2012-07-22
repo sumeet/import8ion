@@ -58,8 +58,13 @@ class AlphabetizesImportsTest(object):
                                                              make_import('a'),
                                                              make_import('b')]
 
-    def test_periods_come_after(self):
-        imports = [make_import('a.b'), make_import('a.c'), make_import('a')]
-        expect(AlphabetizesImports.alphabetize(imports)) == [make_import('a'),
-                                                             make_import('a.b'),
-                                                             make_import('a.c')]
+    def test_periods_come_before_after_letters(self):
+        imports = [make_import('ab'), make_import('a.c'), make_import('a.b')]
+        expect(AlphabetizesImports.alphabetize(imports)) == [make_import('a.b'),
+                                                             make_import('a.c'),
+                                                             make_import('ab')]
+
+    def test_periods_come_before_underscores(self):
+        imports = [make_import('a.b'), make_import('a_b')]
+        expect(AlphabetizesImports.alphabetize(imports)) == [make_import('a.b'),
+                                                             make_import('a_b')]
