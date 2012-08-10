@@ -1,3 +1,5 @@
+import unittest
+
 from expecter import expect
 
 from import8ion import AlphabetizesImports
@@ -30,13 +32,13 @@ import os
 import os.path"""
 
 
-class AcceptanceTest(object):
+class AcceptanceTest(unittest.TestCase):
 
     def test_organizes_imports(self):
         expect(organize(unorganized_imports)) == organized_imports
 
 
-class ExtractsImportsTest(object):
+class ExtractsImportsTest(unittest.TestCase):
 
     def test_finds_imports(self):
         imports = ExtractsImports.extract('import name\n'
@@ -44,14 +46,14 @@ class ExtractsImportsTest(object):
         expect(imports) == [Import('name', None), Import('module', 'name')]
 
 
-class WritesImportsTest(object):
+class WritesImportsTest(unittest.TestCase):
 
     def test_writes_imports(self):
         imports = [make_import('b'), make_import('a', 'name')]
         expect(WritesImports.write(imports)) == 'import b\nfrom a import name'
 
 
-class AlphabetizesImportsTest(object):
+class AlphabetizesImportsTest(unittest.TestCase):
 
     def test_uppercase_comes_before_lowercase(self):
         imports = [make_import('b'), make_import('a'), make_import('C')]
@@ -69,3 +71,7 @@ class AlphabetizesImportsTest(object):
         imports = [make_import('a.b'), make_import('a_b')]
         expect(AlphabetizesImports.alphabetize(imports)) == [make_import('a.b'),
                                                              make_import('a_b')]
+
+
+if __name__ == '__main__':
+    unittest.main()
