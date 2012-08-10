@@ -4,10 +4,10 @@ import itertools
 import sys
 
 
-Import = namedtuple('Import', 'module name')
+Import = namedtuple('Import', 'module name asname')
 
-def make_import(module, name=None):
-    return Import(module, name)
+def make_import(module, name=None, asname=None):
+    return Import(module, name, asname)
 
 
 class ExtractsImports(object):
@@ -21,10 +21,10 @@ class ExtractsImports(object):
     def _make_imports(cls, node):
         if isinstance(node, ast.Import):
             for name in node.names:
-                yield make_import(name.name)
+                yield make_import(name.name, asname=name.asname)
         elif isinstance(node, ast.ImportFrom):
             for name in node.names:
-                yield make_import(node.module, name.name)
+                yield make_import(node.module, name.name, name.asname)
 
 
 class AlphabetizesImports(object):

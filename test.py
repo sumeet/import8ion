@@ -43,7 +43,16 @@ class ExtractsImportsTest(unittest.TestCase):
     def test_finds_imports(self):
         imports = ExtractsImports.extract('import name\n'
                                           'from module import name')
-        expect(imports) == [Import('name', None), Import('module', 'name')]
+        expect(imports) == [make_import('name', None),
+                            make_import('module', 'name')]
+
+    def test_module_as_imports(self):
+        imports = ExtractsImports.extract('import name as other_name')
+        expect(imports) == [make_import('name', None, 'other_name')]
+
+    def test_from_as_imports(self):
+        imports = ExtractsImports.extract('from mod import name as other_name')
+        expect(imports) == [make_import('mod', 'name', 'other_name')]
 
 
 class WritesImportsTest(unittest.TestCase):
