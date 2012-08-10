@@ -46,11 +46,11 @@ class ExtractsImportsTest(unittest.TestCase):
         expect(imports) == [make_import('name', None),
                             make_import('module', 'name')]
 
-    def test_module_as_imports(self):
+    def test_extracts_module_as_imports(self):
         imports = ExtractsImports.extract('import name as other_name')
         expect(imports) == [make_import('name', None, 'other_name')]
 
-    def test_from_as_imports(self):
+    def test_extracts_from_as_imports(self):
         imports = ExtractsImports.extract('from mod import name as other_name')
         expect(imports) == [make_import('mod', 'name', 'other_name')]
 
@@ -60,6 +60,13 @@ class WritesImportsTest(unittest.TestCase):
     def test_writes_imports(self):
         imports = [make_import('b'), make_import('a', 'name')]
         expect(WritesImports.write(imports)) == 'import b\nfrom a import name'
+
+    def test_writes_imports_with_as_names(self):
+        imports = [make_import('module', asname='asmodule'),
+                   make_import('module', 'name', 'asname')]
+        expected = ('import module as asmodule\n'
+                    'from module import name as asname')
+        expect(WritesImports.write(imports)) == expected
 
 
 class AlphabetizesImportsTest(unittest.TestCase):

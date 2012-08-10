@@ -42,8 +42,11 @@ class WritesImports(object):
 
     @classmethod
     def _write(cls, import_):
-            return ('from %s import %s' % (import_.module, import_.name) if
-                    import_.name else 'import %s' % import_.module)
+        statement = ('from %s import %s' % (import_.module, import_.name) if
+                     import_.name else 'import %s' % import_.module)
+        if import_.asname:
+            statement += ' as ' + import_.asname
+        return statement
 
 
 def organize(code):
